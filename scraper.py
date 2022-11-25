@@ -1,3 +1,4 @@
+# scraper.py
 import requests
 import math_utils as maths
 from bs4 import BeautifulSoup
@@ -11,7 +12,16 @@ class Scraper:
     prices = []
     listings = []
 
-    def __init__(self, search, amount):
+    def __init__(self, search: str, amount: int):
+        """
+        The constructor for the Scraper class. \n
+        The search parameter must be a str. \n
+        The amount parameter must be an int. \n
+
+        Keyword Arguments:
+            search: the search term used to build the webpage's URL
+            amount: the number of listings to search
+        """
         search = search.replace(' ', '+')
         self.url = "https://www.ebay.com/sch/i.html?_from=R40&_nkw=" + search + "&LH_Sold=1"
         response = requests.get(self.url)                               # obtaining html code from the url
@@ -29,6 +39,7 @@ class Scraper:
         self.listings.pop(0)                                            # Removing the first item in the array as it isn't actually a listing
 
     def get_average(self):
+        """Returns the average of the prices array"""
         array = []
         for price in self.prices:
             x = price.replace('$', '')
@@ -36,6 +47,7 @@ class Scraper:
         return maths.average(array)
 
     def get_median(self):
+        """Returns the median of the prices array"""
         array = []
         for price in self.prices:
             x = price.replace('$', '')
@@ -43,6 +55,7 @@ class Scraper:
         return maths.median(array)
 
     def get_max(self):
+        """Returns the maximum of the prices array"""
         array = []
         for price in self.prices:
             x = price.replace('$', '')
@@ -50,17 +63,9 @@ class Scraper:
         return max(array)
 
     def get_min(self):
+        """Returns the minimum of the prices array"""
         array = []
         for price in self.prices:
             x = price.replace('$', '')
             array.append(x)
         return min(array)
-
-    def get_prices(self):
-        return self.prices
-
-    def get_items(self):
-        return self.items
-
-    def get_listings(self):
-        return self.listings

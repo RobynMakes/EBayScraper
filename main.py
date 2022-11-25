@@ -6,3 +6,4 @@ if __name__ == '__main__':
 
     scrape = scraper.Scraper(search, amount)
 
+    print(scrape.get_listings())
